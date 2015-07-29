@@ -1,14 +1,23 @@
+//Se importa el modelo para poder acceder a la base de datos
+var models = require('../models/models.js');
+
 // GET /quizes/question
-exports.question = function(req, res){
-    res.render('quizes/question.ejs',{pregunta: '¿Cuál es la capital de Italia?'});
+exports.question = function(req,res){
+  models.Quiz.findAll().then(
+    function(quiz){
+      res.render('quizes/question', {pregunta: quiz[0].pregunta});
+    });
 };
 
 // GET /quizes/answer
 exports.answer = function(req, res){
-    if(req.query.respuesta === 'Roma' || req.query.respuesta === 'roma'){
-        res.render('quizes/answer.ejs',{respuesta: 'Respuesta correcta'});
-    } else {
-        res.render('quizes/answer.ejs',{respuesta: 'Respuesta incorrecta'});
+  models.Quiz.findAll().then(
+    function(quiz){
+      if(req.query.respuesta === quiz[0].respuesta){
+        res.render('quizes/answer',{respuesta: 'Respuesta correcta'});
+      }else{
+        res.render('quizes/answer',{respuesta: 'Respuesta incorrecta'});
+      }
     }
-    
+  );
 };
