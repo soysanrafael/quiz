@@ -12,8 +12,13 @@ router.get('/author', function(req, res) {
   res.render('author.ejs');
 });
 
+/* GET search page */
+router.get('/search', function(req, res) {
+  res.render('search.ejs');
+});
+
 // Autoload de comandos con :quizId
-router.param('quizId', quizController.load);  // autoload :quizId
+router.param('quizId', quizController.loadId);  // autoload :quizId
 
 // Definición de rutas de /quizes
 router.get('/quizes',                      quizController.index);

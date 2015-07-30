@@ -4,7 +4,7 @@ var models = require('../models/models.js');
 
 // Autoload - factoriza el código si ruta incluye :quizId
 // Autoload :id
-exports.load = function(req, res, next, quizId) {
+exports.loadId = function(req, res, next, quizId) {
   models.Quiz.find({
             where: {
                 id: Number(quizId)
@@ -21,35 +21,27 @@ exports.load = function(req, res, next, quizId) {
 // GET /quizes
 exports.index = function(req, res)
 {
-  models.Quiz.findAll().then(
-    function(quizes) {
-      res.render('quizes/index.ejs', {quizes: quizes, errors: []});
-    }
-  ).catch(function(error){next(error)});
+  if(req.query.search){
+    var search = ("%"+req.query.search+"%").replace(/\s+/g,"%");
+    models.Quiz.findAll({where: ["pregunta LIKE ?", search]}).then(
+      function(quizes) {
+        res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+      }
+    ).catch(function(error){next(error)});
+  }else{
+    models.Quiz.findAll().then(
+      function(quizes) {
+        res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+      }
+    ).catch(function(error){next(error)});
+  }
+
 };
 
 // GET /quizes/:id
 exports.show = function(req, res) {
   res.render('quizes/show', { quiz: req.quiz });
 };
-
-/*
-exports.show = function(req, res)
-{
-  var options = {};
-  if(req.quiz){
-    options.where = {id: req.quiz.Id}
-  }
-
-  models.Quiz.findAll(options).then
-  (
-    function(quiz)
-    {
-      res.render('quizes/show', { quiz: req.quiz });
-    }
-  )
-};
-*/
 
 // GET /quizes/:id/answer
 exports.answer = function(req, res) {
@@ -64,3 +56,14 @@ exports.answer = function(req, res) {
     }
   );
 };
+
+
+/*
+if(req.query.search){
+  var search = ("%"+req.search+"%").replace(/\s/g,"%");;
+  models.Quiz.findAll({where: ["pregunta LIKE ?", search]}).then(
+    function(quizes) {
+      res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+    }
+  ).catch(function(error){next(error)});
+  */
