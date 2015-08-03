@@ -18,7 +18,14 @@ app.use(partials());
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+//Los nombres de los parámetros del formulario para crear pregunta
+//    name="quiz[pregunta]"
+//    name="quiz[respuesta]"
+//usan notacion pseudo JSON que permite indicar que son propiedades de un objeto
+//quiz. El middleware bodyparser.urlencode(...) los analiza correctamente y genera
+//el objeto req.body.quiz, si quitamos el parámetro de configuración {extended: false}
+//que express-generator incluyó cuando generó el proyecto.
+app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

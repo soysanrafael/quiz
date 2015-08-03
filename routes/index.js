@@ -17,6 +17,9 @@ router.get('/search', function(req, res) {
   res.render('search.ejs');
 });
 
+/* GET new page */
+router.get('/quizes/new', quizController.new);
+
 // Autoload de comandos con :quizId
 router.param('quizId', quizController.loadId);  // autoload :quizId
 
@@ -24,5 +27,6 @@ router.param('quizId', quizController.loadId);  // autoload :quizId
 router.get('/quizes',                      quizController.index);
 router.get('/quizes/:quizId(\\d+)',        quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
+router.post('/quizes/create', quizController.create);
 
 module.exports = router;
