@@ -40,7 +40,7 @@ exports.index = function(req, res)
 
 // GET /quizes/:id
 exports.show = function(req, res) {
-  res.render('quizes/show', { quiz: req.quiz });
+  res.render('quizes/show', { quiz: req.quiz, errors: []});
 };
 
 // GET /quizes/:id/answer
@@ -52,7 +52,8 @@ exports.answer = function(req, res) {
   res.render(
     'quizes/answer',
     { quiz: req.quiz,
-      respuesta: resultado
+      respuesta: resultado,
+      errors: []
     }
   );
 };
@@ -65,7 +66,7 @@ exports.answer = function(req, res) {
     var quiz = models.Quiz.build(
 			   {pregunta: 'Pregunta', respuesta: 'Respuesta'}
        );
-    res.render('quizes/new', {quiz: quiz});
+    res.render('quizes/new', {quiz: quiz, errors: []});
   };
 
   //POST /quizes/create
@@ -75,5 +76,13 @@ exports.answer = function(req, res) {
 
     //Se guarda en la base de datos los campos pregunta y respuesta de quiz, y se
     //redirecciona a la lista de preguntas
-    quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){res.redirect('/quizes');})
-  };
+    quiz.validate().then(function(err){
+      if (err) {
+        res.render('quizes/new', {quiz: quiz, errors: err.errors});
+      } else {
+        quiz.save({fields: ["pregunta", "respuesta"]})
+          .then( function(){ res.redirect('/quizes')})
+      }
+    }
+  ).catch(function(error){next(error)});
+};

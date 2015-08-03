@@ -14,6 +14,8 @@ nav span             {
   					   					display: inline-block;
 											}
 
+#ErrorMsgs           { color: #f61; font-size: smaler}
+
 section .body_div {
   display: -webkit-flex;
   -webkit-flex-flow: row wrap;
