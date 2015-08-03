@@ -17,7 +17,18 @@ module.exports = function(sequelize, DataTypes) {
       respuesta: {
         type: DataTypes.STRING,
         validate: { notEmpty: {msg: "-> Falta Respuesta"}}
-      }
+      },
+			categoria: {
+        type: DataTypes.STRING,
+				allowNull: false,
+        validate: {
+					         notEmpty: {msg: "-> Falta Categoría"},
+	  				       isIn: {
+	    				             args: [['geografia', 'deporte', 'ciencia', 'tecnologia', 'otro']],
+	    				             msg:  "Categoría incorrecta"
+	  				             }
+				}
+			}
     }
   );
 }

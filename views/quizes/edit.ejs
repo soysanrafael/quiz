@@ -8,21 +8,32 @@
       <span> <%= errors[i].message %> </span><br/>
     <% } %>
   </span>
-
 <% } %>
+
 <form method="post" action="/quizes/<%= quiz.id %>?_method=put" style=max-width:480px;min-width:150px">
-<div class="item">
-  <label for="preg">Pregunta:</label>
-  <input id="preg" type="text" name="quiz[pregunta]" required="required" value="<%= quiz.pregunta %>" />
-</div>
+	<div class="item">
+  	<label for="preg">Pregunta:</label>
+  	<input id="preg" type="text" name="quiz[pregunta]" required="required" value="<%= quiz.pregunta %>" />
+	</div>
 
-<div class="item">
-  <label for="resp">Respuesta:</label>
-  <input id="resp" type="text" name="quiz[respuesta]" required="required" value="<%= quiz.respuesta %>" />
-</div>
+	<div class="item">
+  	<label for="resp">Respuesta:</label>
+  	<input id="resp" type="text" name="quiz[respuesta]" required="required" value="<%= quiz.respuesta %>" />
+	</div>
 
-<div class="buttons">
-  <input type="submit" value="Crear"/>
-  <a href="/quizes"><input type="button" name="Cancelar" value="Cancelar" >
-</div>
+	<div class="item">
+		<label for="cat">Categoría:</label>
+		<select id="cat" name="quiz[categoria]" required="required" >
+			<option value="geografia" 	<% if (quiz.categoria === 'geografia') { %> selected <%}%> 		>Geografía</option>
+			<option value="deportes" 		<% if (quiz.categoria === 'deportes') { %> selected <%}%> 		>Deportes</option>
+			<option value="ciencia" 		<% if (quiz.categoria === 'ciencia') { %> selected <%}%> 			>Ciencia</option>
+			<option value="tecnologia" 	<% if (quiz.categoria === 'tecnologia') { %> selected <%}%> 	>Tecnología</option>
+			<option value="otro" 			<% if (quiz.categoria === 'otro') { %> selected <%}%> 				>Otros</option>
+		</select>
+	</div>
+
+	<div class="buttons">
+		<input type="submit" value="Salvar"/>
+		<a href="/quizes"><input type="button" name="Cancelar" value="Cancelar" >
+	</div>
 </form>

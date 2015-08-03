@@ -8,7 +8,23 @@
 	<input id="resp" type="text" name="quiz[respuesta]" required="required" placeholder="<%= quiz.respuesta %>" />
 </div>
 
+<div class="item">
+  <label for="cat">Categoría:</label>
+	<input id="cat" type="text" name="quiz[respuesta]" required="required" placeholder="<%= quiz.respuesta %>" />
+</div>
+
+<div class="item">
+  <label for="cat">Categoría:</label>
+  <select name="quiz[categoria]" required="required" >
+    <option value="Geografía" 	<% if (quiz.categoria === 'Geografía') { %> selected="selected" <%}%> 		>Geografía</option>
+    <option value="Deportes" 		<% if (quiz.categoria === 'Deportes') { %> selected="selected" <%}%> 			>Deportes</option>
+    <option value="Ciencia" 		<% if (quiz.categoria === 'Ciencia') { %> selected="selected" <%}%> 			>Ciencia</option>
+    <option value="Tecnología" 	<% if (quiz.categoria === 'Tecnología') { %> selected="selected" <%}%> 		>Tecnología</option>
+    <option value="Otros" 			<% if (quiz.categoria === 'Otros') { %> selected="selected" <%}%> 				>Otros</option>
+  </select>
+</div>
+
 <div class="buttons">
-	<input type="submit" value="Crear"/>
+  <input type="submit" value="Salvar"/>
   <a href="/quizes"><input type="button" name="Cancelar" value="Cancelar" >
 </div>

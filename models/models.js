@@ -41,8 +41,16 @@ sequelize.sync().then(function() {
   // then(..), que es un callback, ejecuta el manejador una vez creada la tabla
   Quiz.count().then(function (count){
     if(count === 0){   // la tabla se inicializa solo si está vacía
-      Quiz.create({pregunta: 'Capital de Italia', respuesta: 'Roma'});
-      Quiz.create({pregunta: 'Capital de Portugal', respuesta: 'Lisboa'})
+      Quiz.create({pregunta: 'Capital de Italia', respuesta: 'Roma', categoria: 'geografia'});
+      Quiz.create({pregunta: 'Capital de Portugal', respuesta: 'Lisboa', categoria: 'geografia'});
+      Quiz.create({pregunta: 'En qué deporte se usa tiza', respuesta: 'billar', categoria: 'deporte'});
+      Quiz.create({pregunta: 'Color de la pelota de hockey sobre césped', respuesta: 'blanca', categoria: 'deporte'});
+      Quiz.create({pregunta: 'Cómo se transmiten más rápidamente las ondas sonoras, a través del agua o del aire', respuesta: 'agua', categoria: 'ciencia'});
+      Quiz.create({pregunta: 'Cuántos años tarda la luz en recorrer 9 460 730 472 580,8 km', respuesta: '1', categoria: 'ciencia'});
+      Quiz.create({pregunta: 'Director ejecutivo de SpaceX', respuesta: 'Elon Musk', categoria: 'tecnologia'});
+      Quiz.create({pregunta: 'Cuántos bits hay en un byte', respuesta: '8', categoria: 'tecnologia'});
+      Quiz.create({pregunta: 'Cuál es el ojo defectuoso de Popeye', respuesta: 'derecho', categoria: 'otro'});
+      Quiz.create({pregunta: 'Qué instrumento musical tiene nombre y forma geométricos', respuesta: 'triángulo', categoria: 'otro'})
         .then(function(){console.log('Base de datos (tabla quiz) inicializada')});
     }
   });

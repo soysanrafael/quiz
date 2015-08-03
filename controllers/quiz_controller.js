@@ -23,11 +23,55 @@ exports.index = function(req, res)
 {
   if(req.query.search){
     var search = ("%"+req.query.search+"%").replace(/\s+/g,"%");
-    models.Quiz.findAll({where: ["pregunta LIKE ?", search]}).then(
-      function(quizes) {
-        res.render('quizes/index.ejs', {quizes: quizes, errors: []});
-      }
-    ).catch(function(error){next(error)});
+
+    switch (req.query.search) {
+      case 'geografia':
+      models.Quiz.findAll({where: ["categoria LIKE ?", req.query.search]}).then(
+        function(quizes) {
+          res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+        }
+      ).catch(function(error){next(error)});
+        break;
+
+      case 'deportes':
+      models.Quiz.findAll({where: ["categoria LIKE ?", req.query.search]}).then(
+        function(quizes) {
+          res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+        }
+      ).catch(function(error){next(error)});
+        break;
+
+      case 'ciencia':
+      models.Quiz.findAll({where: ["categoria LIKE ?", req.query.search]}).then(
+        function(quizes) {
+          res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+        }
+      ).catch(function(error){next(error)});
+        break;
+
+      case 'tecnologia':
+      models.Quiz.findAll({where: ["categoria LIKE ?", req.query.search]}).then(
+        function(quizes) {
+          res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+        }
+      ).catch(function(error){next(error)});
+        break;
+
+      case 'otro':
+      models.Quiz.findAll({where: ["categoria LIKE ?", req.query.search]}).then(
+        function(quizes) {
+          res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+        }
+      ).catch(function(error){next(error)});
+        break;
+
+      default:
+      models.Quiz.findAll({where: ["pregunta LIKE ?", search]}).then(
+        function(quizes) {
+          res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+        }
+      ).catch(function(error){next(error)});
+    }
   }else{
     models.Quiz.findAll().then(
       function(quizes) {
@@ -35,7 +79,6 @@ exports.index = function(req, res)
       }
     ).catch(function(error){next(error)});
   }
-
 };
 
 // GET /quizes/:id
@@ -80,7 +123,7 @@ exports.answer = function(req, res) {
       if (err) {
         res.render('quizes/new', {quiz: quiz, errors: err.errors});
       } else {
-        quiz.save({fields: ["pregunta", "respuesta"]})
+        quiz.save({fields: ["pregunta", "respuesta", "categoria"]})
           .then( function(){ res.redirect('/quizes')})
       }
     }).catch(function(error){next(error)});
@@ -96,6 +139,7 @@ exports.answer = function(req, res) {
   exports.update = function(req, res) {
     req.quiz.pregunta = req.body.quiz.pregunta;
     req.quiz.respuesta = req.body.quiz.respuesta;
+    req.quiz.categoria = req.body.quiz.categoria;
 
     //Se guarda en la base de datos los campos pregunta y respuesta de quiz, y se
     //redirecciona a la lista de preguntas
@@ -103,7 +147,7 @@ exports.answer = function(req, res) {
       if (err) {
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
       } else {
-        req.quiz.save( {fields: ["pregunta", "respuesta"]})
+        req.quiz.save( {fields: ["pregunta", "respuesta", "categoria"]})
           .then( function(){ res.redirect('/quizes');});
       }
     })
