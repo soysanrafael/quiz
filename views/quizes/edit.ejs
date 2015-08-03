@@ -1,0 +1,28 @@
+<div class="title">
+	<h2>Editar pregunta :</h2>
+</div>
+
+<% if (errors.length) { %>
+  <span id='ErrorMsgs'>Corregir errores:<br/>
+    <% for (var i in errors) { %>
+      <span> <%= errors[i].message %> </span><br/>
+    <% } %>
+  </span>
+
+<% } %>
+<form method="post" action="/quizes/<%= quiz.id %>?_method=put" style=max-width:480px;min-width:150px">
+<div class="item">
+  <label for="preg">Pregunta:</label>
+  <input id="preg" type="text" name="quiz[pregunta]" required="required" value="<%= quiz.pregunta %>" />
+</div>
+
+<div class="item">
+  <label for="resp">Respuesta:</label>
+  <input id="resp" type="text" name="quiz[respuesta]" required="required" value="<%= quiz.respuesta %>" />
+</div>
+
+<div class="buttons">
+  <input type="submit" value="Crear"/>
+  <a href="/quizes"><input type="button" name="Cancelar" value="Cancelar" >
+</div>
+</form>
