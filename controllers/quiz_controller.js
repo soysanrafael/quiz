@@ -8,7 +8,10 @@ exports.loadId = function(req, res, next, quizId) {
   models.Quiz.find({
             where: {
                 id: Number(quizId)
-            }
+            },
+            include: [{ //se incluye listado de todos los comentarios
+              model: models.Comment
+            }]
         }).then(function(quiz) {
       if (quiz) {
         req.quiz = quiz;
@@ -32,7 +35,6 @@ exports.index = function(req, res)
         }
       ).catch(function(error){next(error)});
         break;
-
       case 'deportes':
       models.Quiz.findAll({where: ["categoria LIKE ?", req.query.search]}).then(
         function(quizes) {
@@ -40,7 +42,6 @@ exports.index = function(req, res)
         }
       ).catch(function(error){next(error)});
         break;
-
       case 'ciencia':
       models.Quiz.findAll({where: ["categoria LIKE ?", req.query.search]}).then(
         function(quizes) {
@@ -48,7 +49,6 @@ exports.index = function(req, res)
         }
       ).catch(function(error){next(error)});
         break;
-
       case 'tecnologia':
       models.Quiz.findAll({where: ["categoria LIKE ?", req.query.search]}).then(
         function(quizes) {
@@ -56,7 +56,6 @@ exports.index = function(req, res)
         }
       ).catch(function(error){next(error)});
         break;
-
       case 'otro':
       models.Quiz.findAll({where: ["categoria LIKE ?", req.query.search]}).then(
         function(quizes) {

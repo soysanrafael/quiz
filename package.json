@@ -10,20 +10,32 @@
     "npm": "2.11.3"
   },
   "devDependencies": {
-    "sqlite3": "^3.0.9"
+    "sqlite3": "^3.0.10"
   },
   "dependencies": {
-    "body-parser": "~1.8.1",
-    "cookie-parser": "~1.3.3",
+    "body-parser": "~1.8.4",
+    "cookie-parser": "~1.3.5",
     "debug": "~2.0.0",
-    "ejs": "~0.8.5",
-    "express": "~4.9.0",
+    "ejs": "~0.8.8",
+    "express": "~4.9.8",
     "express-partials": "^0.3.0",
     "method-override": "^2.3.5",
-    "morgan": "~1.3.0",
-    "pg": "^4.4.0",
+    "morgan": "~1.3.2",
+    "pg": "^4.4.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.5.1",
-    "serve-favicon": "~2.1.3"
-  }
+    "serve-favicon": "~2.1.7"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soysanrafael/quiz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soysanrafael/quiz/issues"
+  },
+  "homepage": "https://github.com/soysanrafael/quiz#readme",
+  "description": ""
 }

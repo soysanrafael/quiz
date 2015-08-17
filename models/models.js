@@ -1,6 +1,6 @@
 /**
 * Se contruye e inicializa la base de datos (las tablas solo se inicializan en
-* caso de estar vacias) a partir del modelo quiz.js.
+* caso de estar vacias) a partir de los modelos quiz.js y comment.js
 */
 
 var path = require('path');
@@ -30,11 +30,35 @@ var sequelize = new Sequelize(DB_name, user, pwd,
     omitNull: true      // solo Postgres
   }
 );
-// Ahora añadimos a la base de datos (objeto sequelize) la tabla Quiz
+
+// Importar definicion de la tabla Quiz
 var quiz_path = path.join(__dirname,'quiz');
 var Quiz = sequelize.import(quiz_path);
+
+// Importar definicion de la tabla Comment
+var comment_path = path.join(__dirname,'comment');
+var Comment = sequelize.import(comment_path);
+
+/**
+* Se definen las relaciones entre ambas tablas
+* Quiz<--1-----------N-->Comment
+*
+*  La relación de tipo 1-a-N entre Quiz y Comment se define en models.js con
+*    -Comment.belongsTo(Quiz), indica que un comment pertenece a un quiz.
+*    -Quiz.hasMany(Comment), indica que un quiz puede tener muchos comments.
+*
+*  La relación añade la columna “QuizId” en la tabla “Comment” que contiene
+*  la clave externa (foreign key), que indica el quiz asociado al comentario.
+*
+*  Ver documentación: http://docs.sequelizejs.com/en/latest/api/associations/
+*                     http://docs.sequelizejs.com/en/latest/docs/associations/
+*/
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
+
 // exportar tabla Quiz para que sea accesible desde otros sitios de la aplicacion
 exports.Quiz = Quiz;
+exports.Comment = Comment;
 
 // sequelize.sync() inicializa tabla Quiz
 sequelize.sync().then(function() {
