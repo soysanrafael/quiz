@@ -3,6 +3,7 @@ var router = express.Router();
 var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
+var statisticController = require('../controllers/statistic_controller');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -21,6 +22,9 @@ router.get('/search', function(req, res) {
 
 /* GET new page */
 router.get('/quizes/new', sessionController.loginRequired, quizController.new);
+
+/* GET statistics page */
+router.get('/quizes/statistics', statisticController.stats);
 
 // Autoload de comandos con :quizId
 router.param('quizId', quizController.loadId);  // autoload :quizId
